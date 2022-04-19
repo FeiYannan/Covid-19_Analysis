@@ -9,15 +9,6 @@ library(stargazer)
 dat = read.csv("datasets/covid.csv")
 dat$date = as.Date(dat$date)
 
-stay_at_home = read.csv("datasets/stay-at-home-covid.csv")
-stay_at_home$Day = as.Date(stay_at_home$Day)
-stay_at_home["stay_home_requirements"][stay_at_home["stay_home_requirements"] == 1] <- 0
-stay_at_home["stay_home_requirements"][stay_at_home["stay_home_requirements"] == 2] <- 1
-stay_at_home["stay_home_requirements"][stay_at_home["stay_home_requirements"] == 3] <- 1
-
-dat = dat %>% full_join(stay_at_home, 
-                        c("location" = "Entity", "iso_code" = "Code", 
-                          "date" = "Day"))
 
 variants = read.csv("datasets/variants.csv")
 variants = variants[variants$variant %in% c("Alpha", "Beta", "Delta", "Gamma","kappa", "Lambda", "Omicron", "others"),]
